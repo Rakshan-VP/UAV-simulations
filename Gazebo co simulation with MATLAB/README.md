@@ -1,5 +1,6 @@
 # Gazebo Co-simulation with MATLAB
 This page shows how to set up a synchronized simulation between Simulink™ and Gazebo to send commands and receive data from Gazebo.
+![gazebo_co](https://github.com/tech-lover-1510/UAV-simulations/assets/136898779/8511ec4b-b4c5-4c31-9dd6-ea1d1136c22e)
 
 ## Installing Gazebo plugin
 - Open Matlab and run the command:

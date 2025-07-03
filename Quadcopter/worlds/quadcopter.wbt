@@ -8,8 +8,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.022264368944154386 0.02470607078445998 0.999446800956365 1.467599609955159
-  position -0.039793827051725246 -1.046153327265878 0.10655023079562596
+  orientation -0.1112925720021723 0.1151161007416345 0.9870978911775585 1.5500306224944056
+  position 0.03807665622454873 -1.1198335248375986 0.21701270966251632
   follow "quadcopter"
 }
 TexturedBackground {
@@ -24,6 +24,58 @@ RectangleArena {
 }
 DEF QUADCOPTER Robot {
   children [
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 0 1
+        anchor -0.0575 0 0.085
+      }
+      device [
+        RotationalMotor {
+          name "lidar motor"
+        }
+      ]
+      endPoint Lidar {
+        translation -0.0375 0 0.085
+        children [
+          Transform {
+            translation -0.02 0 -0.01
+            scale 0.01 0.01 0.01
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  roughness 1
+                  metalness 0.6
+                }
+                geometry Mesh {
+                  url [
+                    "../meshes/lidar.obj"
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+        boundingObject Pose {
+          translation -0.02 0 -0.0025
+          children [
+            Cylinder {
+              height 0.015
+              radius 0.025
+            }
+          ]
+        }
+        physics Physics {
+          density -1
+          mass 0.1
+        }
+        fieldOfView 1
+        verticalFieldOfView 0.01
+        noise 0.01
+        resolution 0.001
+        defaultFrequency 20
+        minFrequency 5
+      }
+    }
     Hinge2Joint {
       jointParameters HingeJointParameters {
         axis 0 0 1
@@ -375,6 +427,6 @@ DEF QUADCOPTER Robot {
       0 0 0
     ]
   }
-  controller "camera"
+  controller "lidar"
   supervisor TRUE
 }

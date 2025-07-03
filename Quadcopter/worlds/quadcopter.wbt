@@ -1,0 +1,380 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/Parquetry.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.022264368944154386 0.02470607078445998 0.999446800956365 1.467599609955159
+  position -0.039793827051725246 -1.046153327265878 0.10655023079562596
+  follow "quadcopter"
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 2 2
+  floorAppearance Parquetry {
+  }
+  wallHeight 0.03
+}
+DEF QUADCOPTER Robot {
+  children [
+    Hinge2Joint {
+      jointParameters HingeJointParameters {
+        axis 0 0 1
+        anchor 0.08 0 0.02
+      }
+      jointParameters2 JointParameters {
+        axis 0 -1 0
+      }
+      device [
+        RotationalMotor {
+          name "axis1motor"
+          minPosition -1.5708
+          maxPosition 1.5708
+        }
+      ]
+      device2 [
+        RotationalMotor {
+          name "axis2motor"
+          minPosition -1.57
+          maxPosition 1.57
+        }
+      ]
+      endPoint Camera {
+        translation 0.08 0 0.02
+        rotation 0 1 0 1.5708
+        children [
+          Transform {
+            translation -0.003 0 0
+            rotation 0 1 0 1.5708
+            scale 0.01 0.01 0.01
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0.2 0.4 0.8
+                  roughness 1
+                  metalness 0
+                }
+                geometry Mesh {
+                  url [
+                    "../meshes/camera.obj"
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+        fieldOfView 1.047
+        width 640
+        height 480
+        far 100
+        exposure 1.2
+        ambientOcclusionRadius 0.5
+        noise 0.01
+      }
+    }
+    GPS {
+      translation 0.05 0 0.055
+      children [
+        Transform {
+          translation 0 0 -0.02
+          scale 0.01 0.01 0.01
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.6 0.6 0.6
+                roughness 1
+                metalness 0
+              }
+              geometry Mesh {
+                url [
+                  "../meshes/gps.obj"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+      boundingObject Cylinder {
+        height 0.03
+        radius 0.025
+      }
+      physics Physics {
+        density -1
+        mass 0.07
+      }
+      accuracy 1
+      noiseCorrelation 0.8
+      resolution 0.01
+      speedNoise 0.2
+      speedResolution 0.05
+    }
+    Transform {
+      translation 0 0 0.03
+      scale 0.01 0.01 0.01
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.8 0.8 0
+            roughness 1
+          }
+          geometry Mesh {
+            url [
+              "../meshes/body.obj"
+            ]
+          }
+        }
+      ]
+    }
+    InertialUnit {
+      translation 0 0 0.045
+      rotation 0 0 1 3.14
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.6 0.8 0.3
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.02 0.02 0.005
+          }
+        }
+      ]
+      name "imu"
+      boundingObject Box {
+        size 0.02 0.02 0.005
+      }
+      physics Physics {
+        density -1
+        mass 0.03
+      }
+      noise 0.005
+      resolution 0.001
+    }
+    DEF prop1 HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 0 1
+        anchor -0.1 -0.1 0.047
+      }
+      device [
+        RotationalMotor {
+          name "motor 1"
+          maxVelocity 100
+        }
+      ]
+      endPoint Solid {
+        translation -0.1 -0.1 0.047
+        children [
+          Transform {
+            scale 0.01 0.01 0.01
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0.75 0.75 0.75
+                  roughness 1
+                  metalness 0
+                }
+                geometry Mesh {
+                  url [
+                    "../meshes/Prop_ccw.obj"
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+        name "prop1ccw"
+        boundingObject Pose {
+          translation 0 0 0.0025
+          children [
+            Cylinder {
+              height 0.005
+              radius 0.055
+            }
+          ]
+        }
+        physics Physics {
+          density -1
+          mass 0.02
+        }
+      }
+    }
+    DEF prop3 HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 0 1
+        anchor 0.1 0.1 0.047
+      }
+      device [
+        RotationalMotor {
+          name "motor 3"
+          maxVelocity 100
+        }
+      ]
+      endPoint Solid {
+        translation 0.1 0.1 0.047
+        children [
+          Transform {
+            scale 0.01 0.01 0.01
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0.75 0.75 0.75
+                  roughness 1
+                  metalness 0
+                }
+                geometry Mesh {
+                  url [
+                    "../meshes/Prop_ccw.obj"
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+        name "prop3ccw"
+        boundingObject Pose {
+          translation 0 0 0.0025
+          children [
+            Cylinder {
+              height 0.005
+              radius 0.055
+            }
+          ]
+        }
+        physics Physics {
+          density -1
+          mass 0.02
+        }
+      }
+    }
+    DEF prop2 HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 0 -1
+        anchor -0.1 0.1 0.047
+      }
+      device [
+        RotationalMotor {
+          name "motor 2"
+          maxVelocity 100
+        }
+      ]
+      endPoint Solid {
+        translation -0.1 0.1 0.047
+        rotation 0 0 -1 0
+        children [
+          Transform {
+            scale 0.01 0.01 0.01
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0.75 0.75 0.75
+                  roughness 1
+                  metalness 0
+                }
+                geometry Mesh {
+                  url [
+                    "../meshes/Prop_cw.obj"
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+        name "prop2cw"
+        boundingObject Pose {
+          translation 0 0 0.0025
+          children [
+            Cylinder {
+              height 0.005
+              radius 0.055
+            }
+          ]
+        }
+        physics Physics {
+          density -1
+          mass 0.02
+        }
+      }
+    }
+    DEF prop4 HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 0 -1
+        anchor 0.1 -0.1 0.047
+      }
+      device [
+        RotationalMotor {
+          name "motor 4"
+          maxVelocity 100
+        }
+      ]
+      endPoint Solid {
+        translation 0.1 -0.1 0.047
+        rotation 0 0 -1 0
+        children [
+          Transform {
+            scale 0.01 0.01 0.01
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0.75 0.75 0.75
+                  roughness 1
+                  metalness 0
+                }
+                geometry Mesh {
+                  url [
+                    "../meshes/Prop_cw.obj"
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+        name "prop4cw"
+        boundingObject Pose {
+          translation 0 0 0.0025
+          children [
+            Cylinder {
+              height 0.005
+              radius 0.055
+            }
+          ]
+        }
+        physics Physics {
+          density -1
+          mass 0.02
+        }
+      }
+    }
+  ]
+  name "quadcopter"
+  boundingObject Pose {
+    translation 0 0 0.05
+    children [
+      Shape {
+        geometry Box {
+          size 0.24 0.24 0.1
+        }
+      }
+    ]
+  }
+  physics Physics {
+    density -1
+    mass 0.5
+    centerOfMass [
+      0 0 0
+    ]
+    inertiaMatrix [
+      0.0015 0.0015 0.0002
+      0 0 0
+    ]
+  }
+  controller "camera"
+  supervisor TRUE
+}
